@@ -20,7 +20,7 @@ public class CartItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne // many cart items belong to 1 cart
     @JoinColumn(name="cart_id")
     private Cart cart;
 
@@ -32,6 +32,6 @@ public class CartItem {
 
     private BigDecimal pricePerUnit;
 
-    private BigDecimal subtotal;
+    private BigDecimal subTotal;
 
 }

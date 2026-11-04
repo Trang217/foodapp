@@ -18,7 +18,7 @@ public class CartItemDTO {
 
     private BigDecimal pricePerUnit;
 
-    private BigDecimal subtotal;
+    private BigDecimal subTotal;
 
 
 }

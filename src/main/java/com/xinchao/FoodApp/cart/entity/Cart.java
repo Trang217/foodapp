@@ -28,6 +28,4 @@ public class Cart {
     private List<CartItem> cartItems;
 
     private String promotionCode;
-
-
 }
