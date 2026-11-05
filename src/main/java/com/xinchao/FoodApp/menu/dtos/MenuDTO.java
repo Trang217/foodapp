@@ -1,4 +1,4 @@
-package com.xinchao.FoodApp.menu.entity;
+package com.xinchao.FoodApp.menu.dtos;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;

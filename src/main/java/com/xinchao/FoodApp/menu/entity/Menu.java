@@ -2,6 +2,7 @@ package com.xinchao.FoodApp.menu.entity;
 
 import com.stripe.model.Review;
 import com.xinchao.FoodApp.category.entity.Category;
+import com.xinchao.FoodApp.order.entity.OrderItem;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
