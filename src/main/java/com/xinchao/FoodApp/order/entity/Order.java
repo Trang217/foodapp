@@ -3,6 +3,7 @@ package com.xinchao.FoodApp.order.entity;
 import com.xinchao.FoodApp.auth_users.entity.User;
 import com.xinchao.FoodApp.enums.OrderStatus;
 import com.xinchao.FoodApp.enums.PaymentStatus;
+import com.xinchao.FoodApp.payment.entity.Payment;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
