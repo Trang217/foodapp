@@ -40,7 +40,7 @@ public class User {
 
     private String address;
 
-    private Boolean isActive;
+    private boolean isActive;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(

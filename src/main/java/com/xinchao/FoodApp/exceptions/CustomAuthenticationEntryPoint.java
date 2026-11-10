@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 import tools.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
-
+//dùng để xử lý khi người dùng chưa được xác thực mà muốn truy cập API được bảo vệ trong Spring Security.
 @Component
 @RequiredArgsConstructor
 public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint {
