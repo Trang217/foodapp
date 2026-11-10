@@ -1,9 +1,9 @@
 package com.xinchao.FoodApp.auth_users.entity;
 
-import com.stripe.model.Review;
 import com.xinchao.FoodApp.cart.entity.Cart;
 import com.xinchao.FoodApp.order.entity.Order;
 import com.xinchao.FoodApp.payment.entity.Payment;
+import com.xinchao.FoodApp.review.entity.Review;
 import com.xinchao.FoodApp.role.entity.Role;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;

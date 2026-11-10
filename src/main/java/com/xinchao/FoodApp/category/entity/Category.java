@@ -1,12 +1,12 @@
 package com.xinchao.FoodApp.category.entity;
 
+import com.xinchao.FoodApp.menu.entity.Menu;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.awt.*;
 import java.util.List;
 
 @Entity
