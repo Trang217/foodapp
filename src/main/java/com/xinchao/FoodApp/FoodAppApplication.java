@@ -24,7 +24,7 @@ public class FoodAppApplication {
 	CommandLineRunner runner(){
 		return args -> {
 			NotificationDTO notificationDTO = NotificationDTO.builder()
-					.recipient("jennyt@gmail.com")
+					.recipient("jennyt.htw@gmail.com")
 					.subject("Hello Jenny")
 					.body("Hey this is Trang")
 					.type(NotificationType.EMAIL)
