@@ -37,7 +37,7 @@ public class SecurityFilter {
                         "/api/auth/**" ,
                                   "/api/categories/**",
                                     "/api/reviews/**",
-                                "/api/upload").permitAll()
+                                "/api/roles/**").permitAll()
                         .anyRequest().authenticated())
                 .sessionManagement(mag -> mag.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class);
