@@ -24,7 +24,7 @@ public class RegistrationRequest {
     private String address;
 
     @NotBlank(message = "Phone number is required")
-    private String phoneNUmber;
+    private String phoneNumber;
 
     private List<String> roles;
 }

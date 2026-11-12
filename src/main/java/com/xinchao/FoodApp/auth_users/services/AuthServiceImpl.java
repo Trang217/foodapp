@@ -57,7 +57,7 @@ public class AuthServiceImpl implements AuthService{
                 .name(registrationRequest.getName())
                 .email(registrationRequest.getEmail())
                 .address(registrationRequest.getAddress())
-                .phoneNumber(registrationRequest.getPhoneNUmber())
+                .phoneNumber(registrationRequest.getPhoneNumber())
                 .password(passwordEncoder.encode(registrationRequest.getPassword()))
                 .roles(userRoles)
                 .isActive(true)
