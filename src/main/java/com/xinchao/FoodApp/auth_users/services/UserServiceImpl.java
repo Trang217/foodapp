@@ -4,7 +4,9 @@ import com.xinchao.FoodApp.auth_users.dtos.UserDTO;
 import com.xinchao.FoodApp.auth_users.entity.User;
 import com.xinchao.FoodApp.auth_users.repository.UserRepository;
 import com.xinchao.FoodApp.aws.AWSS3Service;
+import com.xinchao.FoodApp.email_notification.dtos.NotificationDTO;
 import com.xinchao.FoodApp.email_notification.service.NotificationService;
+import com.xinchao.FoodApp.exceptions.BadRequestException;
 import com.xinchao.FoodApp.exceptions.NotFoundException;
 import com.xinchao.FoodApp.response.Response;
 import lombok.RequiredArgsConstructor;
@@ -84,7 +86,31 @@ public class UserServiceImpl implements UserService{
             user.setProfileUrl(newImageUrl.toString());
         }
 
-        return Response.<?>builder()
+        // update user detail
+        if(userDTO.getName() != null) {
+            user.setName(userDTO.getName());
+        }
+        if(userDTO.getAddress() != null) {
+            user.setAddress(userDTO.getAddress());
+        }
+        if(userDTO.getPhoneNumber() != null) {
+            user.setPhoneNumber(userDTO.getPhoneNumber());
+        }
+        if(userDTO.getPassword() != null) {
+            user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+        }
+
+        if(userDTO.getEmail() != null && !userDTO.getEmail().equals(user.getEmail())) {
+            // check if the new email is already taken
+            if(userRepository.existsByEmail(userDTO.getEmail())){
+                throw new BadRequestException("Email already exist");
+            }
+            user.setEmail(userDTO.getEmail());
+        }
+        // save the user
+        userRepository.save(user);
+
+        return Response.builder()
                 .statusCode(HttpStatus.OK.value())
                 .message("user updated ok")
                 .build();
@@ -92,6 +118,24 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public Response<?> deactivateOwnAccount() {
-        return null;
+        log.info("Inside deactivateOwnAccount");
+
+        // deactivate the user
+        User user = getCurrentLogInUser();
+        user.setActive(false);
+        userRepository.save(user);
+
+        // send email after deactivate user
+        NotificationDTO notificationDTO =  NotificationDTO.builder()
+                .recipient(user.getEmail())
+                .subject("Account Deactivate")
+                .body("Your Account has been deactivated. If it is a mistake, please contact our customer service.")
+                .build();
+       notificationService.sendEmail(notificationDTO);
+
+        return Response.builder()
+                .statusCode(HttpStatus.OK.value())
+                .message("Account deactivate successfully")
+                .build();
     }
 }
