@@ -4,11 +4,11 @@ import com.xinchao.FoodApp.auth_users.dtos.UserDTO;
 import com.xinchao.FoodApp.auth_users.services.UserService;
 import com.xinchao.FoodApp.response.Response;
 import lombok.AllArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -22,5 +22,22 @@ public class UserController {
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<Response<List<UserDTO>>> getAllUsers(){
         return ResponseEntity.ok(userService.getAllUsers());
+    }
+
+    @PutMapping(value = "/update", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<Response<?>> updateOwnAccount(@ModelAttribute UserDTO userDTO,
+                                                     @RequestPart(value = "imageFile",required = false) MultipartFile imageFile){
+        userDTO.setImageFile(imageFile);
+        return ResponseEntity.ok(userService.updateOwnAccount(userDTO));
+    }
+
+    @GetMapping("/account")
+    public ResponseEntity<Response<UserDTO>> getOwnAccountDetails(){
+        return ResponseEntity.ok(userService.getOwnAccountDetails());
+    }
+
+    @DeleteMapping("/deactivate")
+    public ResponseEntity<Response<?>> deactivateOwnAccount(){
+        return ResponseEntity.ok(userService.deactivateOwnAccount());
     }
 }
