@@ -1,0 +1,141 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment Failed</title>
+
+  <style>
+    body {
+        margin: 0;
+        padding: 20px;
+        background-color: #f4f5f7;
+        font-family: Arial, sans-serif;
+        color: #111;
+    }
+
+    .container {
+        max-width: 750px;
+        margin: 0 auto;
+        background-color: #fff;
+        padding: 40px;
+        border-radius: 14px;
+        box-shadow: 0 4px 18px rgba(0, 0, 0, 0.06);
+    }
+
+    .header {
+        text-align: center;
+        margin-bottom: 35px;
+    }
+
+    .failed-icon {
+        width: 70px;
+        height: 70px;
+        margin: 0 auto 20px;
+    }
+
+    h1 {
+        color: #dc3545;
+        font-size: 34px;
+        margin: 0;
+    }
+
+    p {
+        font-size: 17px;
+        line-height: 1.5;
+    }
+
+    .payment-details {
+        background-color: #f5f6f8;
+        border-radius: 10px;
+        padding: 25px;
+        margin: 30px 0;
+    }
+
+    .payment-details p {
+        margin: 10px 0;
+        color: #555;
+    }
+
+    .footer {
+        text-align: center;
+        margin-top: 35px;
+        color: #777;
+        font-size: 14px;
+    }
+
+    .footer p {
+        font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+<div class="container">
+
+  <div class="header">
+    <div class="failed-icon">
+      <svg xmlns="http://www.w3.org/2000/svg"
+           width="70" height="70"
+           viewBox="0 0 24 24"
+           fill="none"
+           stroke="#dc3545"
+           stroke-width="1.8"
+           stroke-linecap="round"
+           stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"/>
+        <path d="M15 9 9 15"/>
+        <path d="m9 9 6 6"/>
+      </svg>
+    </div>
+
+    <h1>Payment Failed</h1>
+  </div>
+
+  <p>
+    Dear <span th:text="${customerName}">Customer</span>,
+  </p>
+
+  <p>
+    We couldn't process your payment for Order
+    #<span th:text="${orderId}">12345</span>.
+  </p>
+
+  <div class="payment-details">
+
+    <p>
+      <strong>Reason:</strong>
+      <span th:text="${failureReason}">
+                Payment declined
+            </span>
+    </p>
+
+    <p>
+      <strong>Attempted Amount:</strong>
+      <span th:text="${totalAmount}">
+                45.99 EUR
+            </span>
+    </p>
+
+  </div>
+
+  <p>
+    Please try again or contact our customer care
+    for assistance.
+  </p>
+
+  <div class="footer">
+    <p>
+      Need help? Contact us at
+      <a href="mailto:support@xinchaofood.com">
+        support@phegonfood.com
+      </a>
+    </p>
+
+    <p>© <span th:text="${currentYear}">2026</span> Your XinChao Food. All rights reserved.</p>
+  </div>
+
+</div>
+</body>
+</html>
