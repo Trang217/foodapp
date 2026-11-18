@@ -83,8 +83,8 @@ public class CartServiceImpl implements CartService{
     }
 
     @Override
-    public Response<?> increatementItem(Long menuId) {
-        log.info("inside increatementItem");
+    public Response<?> incrementItem(Long menuId) {
+        log.info("inside incrementItem");
         User user = userService.getCurrentLogInUser();
         Cart cart = cartRepository.findByUser_Id(user.getId())
                 .orElseThrow(() -> new NotFoundException("Cart not found"));
@@ -103,8 +103,8 @@ public class CartServiceImpl implements CartService{
     }
 
     @Override
-    public Response<?> decreatementItem(Long menuId) {
-        log.info("inside decreatementItem");
+    public Response<?> decrementItem(Long menuId) {
+        log.info("inside decrementItem");
         User user = userService.getCurrentLogInUser();
         Cart cart = cartRepository.findByUser_Id(user.getId())
                 .orElseThrow(() -> new NotFoundException("Cart not found"));

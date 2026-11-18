@@ -1,11 +1,44 @@
 package com.xinchao.FoodApp.cart.controller;
 
+import com.xinchao.FoodApp.cart.dtos.CartDTO;
+import com.xinchao.FoodApp.cart.service.CartService;
+import com.xinchao.FoodApp.response.Response;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping
+@RequestMapping("/api/cart")
 public class CartController {
+    private final CartService cartService;
+    @GetMapping
+    public ResponseEntity<Response<CartDTO>> getShoppingCart(){
+        return ResponseEntity.ok(cartService.getShoppingCart());
+    }
+
+    @PostMapping("/items")
+    public ResponseEntity<Response<?>> addItemToCart(@RequestBody CartDTO cartDTO){
+        return ResponseEntity.ok(cartService.addItemToCart(cartDTO));
+    }
+
+    @PutMapping("/items/increment/{menuId}")
+    public ResponseEntity<Response<?>> incrementItem(@PathVariable Long menuId){
+        return ResponseEntity.ok(cartService.incrementItem(menuId));
+    }
+
+    @PutMapping("/items/decrement/{menuId}")
+    public ResponseEntity<Response<?>> decrementItem(@PathVariable Long menuId){
+        return ResponseEntity.ok(cartService.decrementItem(menuId));
+    }
+
+    @DeleteMapping("/items/{cartItemId}")
+    public ResponseEntity<Response<?>> removeItem(@PathVariable Long cartItemId){
+        return ResponseEntity.ok(cartService.removeItem(cartItemId));
+    }
+
+    @DeleteMapping
+    public ResponseEntity<Response<?>> clearShoppingCart(){
+        return ResponseEntity.ok(cartService.clearShoppingCart());
+    }
 }
