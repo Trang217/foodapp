@@ -30,13 +30,13 @@ public class CategoryController {
 
     @PutMapping
     @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<Response<CategoryDTO>> updateCategories(@RequestBody @Valid CategoryDTO categoryDTO){
+    public ResponseEntity<Response<CategoryDTO>> updateCategories(@RequestBody CategoryDTO categoryDTO){
         return ResponseEntity.ok(categoryService.updateCategory(categoryDTO));
     }
 
     @PostMapping
     @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<Response<CategoryDTO>> addCategory(@RequestBody CategoryDTO categoryDTO){
+    public ResponseEntity<Response<CategoryDTO>> addCategory(@RequestBody @Valid CategoryDTO categoryDTO){
         return ResponseEntity.ok(categoryService.addCategory(categoryDTO));
     }
 
