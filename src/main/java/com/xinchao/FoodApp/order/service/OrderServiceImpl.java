@@ -43,7 +43,6 @@ import java.util.Locale;
 @RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService{
 
-    private final OrderService orderService;
     private final OrderRepository orderRepository;
     private final OrderItemRepository orderItemRepository;
     private final NotificationService notificationService;
