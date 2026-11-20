@@ -29,6 +29,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
@@ -55,7 +56,7 @@ public class OrderServiceImpl implements OrderService{
     @Value("${base.payment.link}")
     private String basePaymentLink;
 
-
+    @Transactional
     @Override
     public Response<?> placeOrderFromCart() {
         log.info(" inside placeOrderFromCart");
@@ -64,6 +65,8 @@ public class OrderServiceImpl implements OrderService{
         if (deliveryAddress == null) {
             throw new NotFoundException("Delivery address not present for user");
         }
+
+        log.info("cart passed");
 
         Cart cart = cartRepository.findByUser_Id(customer.getId())
                 .orElseThrow(()-> new NotFoundException("Cart not found"));
@@ -108,7 +111,7 @@ public class OrderServiceImpl implements OrderService{
         OrderDTO orderDTO = modelMapper.map(order, OrderDTO.class);
         // send email notification
         sendOrderConfirmationEmail(customer, orderDTO);
-
+        log.info("send email and complete");
         return Response.builder()
                 .statusCode(HttpStatus.OK.value())
                 .message("Your order has been received! We have sent a secure payment link to your email. Please proceed the payment to confirm your order!")
@@ -240,16 +243,15 @@ public class OrderServiceImpl implements OrderService{
             context.setVariable("totalItems", orderDTO.getOrderItems().size());
             String paymentLink = basePaymentLink + orderDTO.getId() + "&amount=" + orderDTO.getTotalAmount();// replace mit domain
             context.setVariable("paymentLink", paymentLink);
-
-            // process the thymeleaf template to generate the html email body
-            String emailBody = templateEngine.process("order-confirmation", context);// order-confirmation is template name
-            notificationService.sendEmail(NotificationDTO.builder()
-                    .subject(subject)
-                    .body(emailBody)
-                    .isHtml(true)
-                    .recipient(customer.getEmail())
-                    .build());
-
         }
+
+        // process the thymeleaf template to generate the html email body
+        String emailBody = templateEngine.process("order-confirmation", context);// order-confirmation is template name
+        notificationService.sendEmail(NotificationDTO.builder()
+                .subject(subject)
+                .body(emailBody)
+                .isHtml(true)
+                .recipient(customer.getEmail())
+                .build());
     }
 }
