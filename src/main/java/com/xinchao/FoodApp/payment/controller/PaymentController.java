@@ -25,7 +25,7 @@ public class PaymentController {
 
     @PutMapping("/update")
     public void updatePaymentForOrder(@RequestBody PaymentDTO paymentDTO){
-         paymentService.updatePaymentForOrder(paymentDTO;
+         paymentService.updatePaymentForOrder(paymentDTO);
     }
 
     @GetMapping("/all")
