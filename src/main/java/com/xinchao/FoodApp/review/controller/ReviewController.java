@@ -13,24 +13,23 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/review")
+@RequestMapping("/reviews")
 public class ReviewController {
     private final ReviewService reviewService;
 
-    @PostMapping("/create")
-    @PreAuthorize("hasAuthority('CUSTOMER')")
+    @PostMapping()
+    @PreAuthorize("isAuthenticate()")
     public ResponseEntity<Response<ReviewDTO>> createReview(@RequestBody @Valid ReviewDTO reviewDTO){
         return ResponseEntity.ok(reviewService.createReview(reviewDTO));
     }
 
-    @GetMapping("/{menuId}")
+    @GetMapping("/menu-item/{menuId}")
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<Response<List<ReviewDTO>>> getReviewsForMenu(@PathVariable Long menuId){
         return ResponseEntity.ok(reviewService.getReviewsForMenu(menuId));
     }
 
-    @GetMapping("/avg-rating/{menuId}")
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @GetMapping("/menu-item/avg/{menuId}")
     public ResponseEntity<Response<Double>> getAverageRating(@PathVariable Long menuId){
         return ResponseEntity.ok(reviewService.getAverageRating(menuId));
     }
