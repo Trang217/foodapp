@@ -3,8 +3,6 @@ package com.xinchao.FoodApp.payment.service;
 import com.stripe.Stripe;
 import com.stripe.model.PaymentIntent;
 import com.stripe.param.PaymentIntentCreateParams;
-import com.xinchao.FoodApp.auth_users.entity.User;
-import com.xinchao.FoodApp.auth_users.services.UserService;
 import com.xinchao.FoodApp.email_notification.dtos.NotificationDTO;
 import com.xinchao.FoodApp.email_notification.service.NotificationService;
 import com.xinchao.FoodApp.enums.OrderStatus;
@@ -42,7 +40,6 @@ public class PaymentServiceImpl implements PaymentService{
     private final OrderRepository orderRepository;
     private final NotificationService notificationService;
     private final TemplateEngine templateEngine;
-    private final UserService userService;
     private final ModelMapper modelMapper;
 
     @Value("${stripe.api.secret.key}")
@@ -55,7 +52,6 @@ public class PaymentServiceImpl implements PaymentService{
     public Response<?> inititalizePayment(PaymentDTO paymentDTO) {
         log.info("inside inititalizePayment");
         Stripe.apiKey = secretKey;
-        User customer = userService.getCurrentLogInUser();
         Long orderId = paymentDTO.getOrderId();
         Order order = orderRepository.findById(orderId)
                 .orElseThrow(() -> new NotFoundException("Order not found"));
